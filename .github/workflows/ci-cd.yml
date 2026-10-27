@@ -1,4 +1,4 @@
-name: Discovery Service CI/CD
+name: User Account Service CI/CD
 
 on:
   push:
