@@ -21,8 +21,8 @@ services:
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092,CONTROLLER://localhost:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
@@ -31,6 +31,8 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_NUM_PARTITIONS: 3
+    networks:
+      - finnew-net
 
   api-gateway:
     build: ./finnew-api-gateway
@@ -43,6 +45,7 @@ services:
     env_file: .env
     environment:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery-service:8761/eureka/
+      - eureka.client.server-url.defaultZone=http://discovery-service:8761/eureka/
     networks:
       - finnew-net
 
@@ -59,7 +62,9 @@ services:
     env_file: .env
     environment:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery-service:8761/eureka/
+      - eureka.client.server-url.defaultZone=http://discovery-service:8761/eureka/
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - spring.kafka.bootstrap-servers=kafka:9092
     networks:
       - finnew-net
 
@@ -76,7 +81,9 @@ services:
     env_file: .env
     environment:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery-service:8761/eureka/
+      - eureka.client.server-url.defaultZone=http://discovery-service:8761/eureka/
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - spring.kafka.bootstrap-servers=kafka:9092
     networks:
       - finnew-net
 
@@ -93,7 +100,9 @@ services:
     env_file: .env
     environment:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://discovery-service:8761/eureka/
+      - eureka.client.server-url.defaultZone=http://discovery-service:8761/eureka/
       - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - spring.kafka.bootstrap-servers=kafka:9092
     networks:
       - finnew-net
 
